@@ -7,11 +7,11 @@
  */
 export default {
   dev: {
-    '/api/': {
-      target: 'https://preview.pro.ant.design',
+    '/server/api/': {
+      target: 'http://localhost:8080/Jupiter2_war/',
       changeOrigin: true,
       pathRewrite: {
-        '^': '',
+        '^/server/api/': '',
       },
     },
   },

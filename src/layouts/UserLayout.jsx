@@ -3,8 +3,9 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Link, useIntl, connect } from 'umi';
 import React from 'react';
 import SelectLang from '@/components/SelectLang';
-import logo from '../assets/logo.svg';
+import logo from '../assets/loupe.svg';
 import styles from './UserLayout.less';
+import { GithubOutlined } from '@ant-design/icons';
 
 const UserLayout = props => {
   const {
@@ -43,14 +44,36 @@ const UserLayout = props => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Ant Design</span>
+                <span className={styles.title}>Jupiter2</span>
               </Link>
             </div>
-            <div className={styles.desc}>Jupiter2</div>
+            <div className={styles.desc}>Job Search and Recommendation</div>
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <DefaultFooter
+          copyright="2020 zsxing99"
+          links={[
+            {
+              key: 'Ant Design Pro',
+              title: 'Ant Design Pro',
+              href: 'https://pro.ant.design',
+              blankTarget: true,
+            },
+            {
+              key: 'github',
+              title: <GithubOutlined />,
+              href: 'https://jobs.github.com/',
+              blankTarget: true,
+            },
+            {
+              key: 'zsxing',
+              title: 'zsxing',
+              href: 'https://github.com/zsxing99',
+              blankTarget: true,
+            },
+          ]}
+        />
       </div>
     </HelmetProvider>
   );

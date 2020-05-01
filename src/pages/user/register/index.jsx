@@ -1,11 +1,9 @@
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message } from 'antd';
+import { Form, Button, Col, Input, Popover, Progress, message } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Link, connect, history, FormattedMessage, formatMessage } from 'umi';
 import styles from './style.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const InputGroup = Input.Group;
 const passwordStatusMap = {
   ok: (
     <div className={styles.success}>
@@ -30,9 +28,7 @@ const passwordProgressMap = {
 };
 
 const Register = ({ submitting, dispatch, userAndregister }) => {
-  const [count, setcount] = useState(0);
   const [visible, setvisible] = useState(false);
-  const [prefix, setprefix] = useState('86');
   const [popover, setpopover] = useState(false);
   const confirmDirty = false;
   let interval;
@@ -43,14 +39,18 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
     }
 
     const account = form.getFieldValue('mail');
-
-    if (userAndregister.status === 'ok') {
-      message.success('注册成功！');
+    if (userAndregister.status === 'OK') {
+      message.success('Successfully Registered!');
       history.push({
-        pathname: '/user/register-result',
+        pathname: '/user/login',
         state: {
           account,
         },
+      });
+    } else if (userAndregister.status !== undefined) {
+      message.error(userAndregister.status);
+      history.push({
+        pathname: '/user/register',
       });
     }
   }, [userAndregister]);
@@ -60,19 +60,6 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
     },
     [],
   );
-
-  const onGetCaptcha = () => {
-    let counts = 59;
-    setcount(counts);
-    interval = window.setInterval(() => {
-      counts -= 1;
-      setcount(counts);
-
-      if (counts === 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
-  };
 
   const getPasswordStatus = () => {
     const value = form.getFieldValue('password');
@@ -91,7 +78,7 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
   const onFinish = values => {
     dispatch({
       type: 'userAndregister/submit',
-      payload: { ...values, prefix },
+      payload: { ...values },
     });
   };
 
@@ -138,10 +125,6 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
     return promise.resolve();
   };
 
-  const changePrefix = value => {
-    setprefix(value);
-  };
-
   const renderPasswordProgress = () => {
     const value = form.getFieldValue('password');
     const passwordStatus = getPasswordStatus();
@@ -165,7 +148,7 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
       </h3>
       <Form form={form} name="UserRegister" onFinish={onFinish}>
         <FormItem
-          name="mail"
+          name="user_id"
           rules={[
             {
               required: true,
@@ -265,82 +248,42 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
             })}
           />
         </FormItem>
-        <InputGroup compact>
-          <Select
+        <FormItem
+          name="first_name"
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'userandregister.firstName.required',
+              }),
+            },
+          ]}
+        >
+          <Input
             size="large"
-            value={prefix}
-            onChange={changePrefix}
-            style={{
-              width: '20%',
-            }}
-          >
-            <Option value="86">+86</Option>
-            <Option value="87">+87</Option>
-          </Select>
-          <FormItem
-            style={{
-              width: '80%',
-            }}
-            name="mobile"
-            rules={[
-              {
-                required: true,
-                message: formatMessage({
-                  id: 'userandregister.phone-number.required',
-                }),
-              },
-              {
-                pattern: /^\d{11}$/,
-                message: formatMessage({
-                  id: 'userandregister.phone-number.wrong-format',
-                }),
-              },
-            ]}
-          >
-            <Input
-              size="large"
-              placeholder={formatMessage({
-                id: 'userandregister.phone-number.placeholder',
-              })}
-            />
-          </FormItem>
-        </InputGroup>
-        <Row gutter={8}>
-          <Col span={16}>
-            <FormItem
-              name="captcha"
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({
-                    id: 'userandregister.verification-code.required',
-                  }),
-                },
-              ]}
-            >
-              <Input
-                size="large"
-                placeholder={formatMessage({
-                  id: 'userandregister.verification-code.placeholder',
-                })}
-              />
-            </FormItem>
-          </Col>
-          <Col span={8}>
-            <Button
-              size="large"
-              disabled={!!count}
-              className={styles.getCaptcha}
-              onClick={onGetCaptcha}
-            >
-              {count
-                ? `${count} s`
-                : formatMessage({
-                    id: 'userandregister.register.get-verification-code',
-                  })}
-            </Button>
-          </Col>
-        </Row>
+            placeholder={formatMessage({
+              id: 'userandregister.firstName.placeholder',
+            })}
+          />
+        </FormItem>
+        <FormItem
+          name="last_name"
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'userandregister.lastName.required',
+              }),
+            },
+          ]}
+        >
+          <Input
+            size="large"
+            placeholder={formatMessage({
+              id: 'userandregister.lastName.placeholder',
+            })}
+          />
+        </FormItem>
         <FormItem>
           <Button
             size="large"

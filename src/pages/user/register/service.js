@@ -6,3 +6,10 @@ export async function fakeRegister(params) {
     data: params,
   });
 }
+
+export async function register(params) {
+  return request('/server/api/user/register', {
+    method: 'POST',
+    data: JSON.stringify(params),
+  });
+}

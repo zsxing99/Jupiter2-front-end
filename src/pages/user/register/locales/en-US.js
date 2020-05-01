@@ -75,4 +75,9 @@ export default {
   'userandregister.option.B': 'Colleague B',
   'userandregister.option.C': 'Colleague C',
   'userandregister.navBar.lang': 'Languages',
+
+  'userandregister.firstName.required': 'Please enter your first name!',
+  'userandregister.firstName.placeholder': 'First Name',
+  'userandregister.lastName.required': 'Please enter your last name!',
+  'userandregister.lastName.placeholder': 'Last Name',
 };

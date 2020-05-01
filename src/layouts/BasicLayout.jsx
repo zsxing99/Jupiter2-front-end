@@ -48,7 +48,7 @@ const defaultFooterDom = (
       {
         key: 'github',
         title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
+        href: 'https://jobs.github.com/',
         blankTarget: true,
       },
       {
