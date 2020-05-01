@@ -34,13 +34,13 @@ const Login = props => {
   return (
     <div className={styles.main}>
       <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
-        <Tab key="account" tab="Login">
+        <Tab key="account" tab="Email Login">
           {status === 'error' && loginType === 'account' && !submitting && (
             <LoginMessage content="Login failed (username/password incorrect)" />
           )}
 
           <UserName
-            name="userName"
+            name="user_id"
             placeholder="username"
             rules={[
               {

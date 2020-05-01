@@ -1,6 +1,6 @@
 import { history } from 'umi';
 import { message } from 'antd';
-import { fakeAccountLogin, getFakeCaptcha } from './service';
+import { accountLogin } from './service';
 import { getPageQuery, setAuthority } from './utils/utils';
 
 const Model = {
@@ -10,14 +10,14 @@ const Model = {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
-        message.success('登录成功！');
+      if (response.status === 'OK') {
+        message.success('Successfully Logged In!');
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -38,11 +38,12 @@ const Model = {
         }
 
         history.replace(redirect || '/');
+      } else if (response.status !== undefined) {
+        message.error(response.status);
+        history.push({
+          pathname: '/user/login',
+        });
       }
-    },
-
-    *getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
     },
   },
   reducers: {
