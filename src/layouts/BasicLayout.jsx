@@ -37,7 +37,7 @@ const menuDataRender = menuList =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2019 蚂蚁金服体验技术部出品"
+    copyright="2020 zsxing99"
     links={[
       {
         key: 'Ant Design Pro',
@@ -52,9 +52,9 @@ const defaultFooterDom = (
         blankTarget: true,
       },
       {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
+        key: 'zsxing',
+        title: 'zsxing',
+        href: 'https://github.com/zsxing99',
         blankTarget: true,
       },
     ]}
