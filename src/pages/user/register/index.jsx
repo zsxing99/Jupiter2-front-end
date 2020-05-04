@@ -53,6 +53,10 @@ const Register = ({ submitting, dispatch, userAndregister }) => {
         pathname: '/user/register',
       });
     }
+
+    if (userAndregister.status !== undefined) {
+      userAndregister.status = undefined;
+    }
   }, [userAndregister]);
   useEffect(
     () => () => {

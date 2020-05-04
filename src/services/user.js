@@ -1,11 +1,9 @@
 import request from '@/utils/request';
 
-export async function query() {
-  return request('/api/users');
-}
 export async function queryCurrent() {
-  return request('/api/currentUser');
+  return request('/Jupiter2_war/server/api/user/login', {
+    method: 'GET',
+    credentials: 'include'
+  });
 }
-export async function queryNotices() {
-  return request('/api/notices');
-}
+

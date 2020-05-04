@@ -12,13 +12,11 @@ const SelectLang = props => {
 
   const changeLang = ({ key }) => setLocale(key);
 
-  const locales = ['zh-CN', 'en-US'];
+  const locales = ['en-US'];
   const languageLabels = {
     'en-US': 'English',
-    'zh-CN': '简体中文',
   };
   const languageIcons = {
-    'zh-CN': '🇨🇳',
     'en-US': '🇺🇸',
   };
   const langMenu = (
@@ -36,7 +34,7 @@ const SelectLang = props => {
   return (
     <HeaderDropdown overlay={langMenu} placement="bottomRight">
       <span className={classNames(styles.dropDown, className)}>
-        <GlobalOutlined title="语言" />
+        <GlobalOutlined title="language" />
       </span>
     </HeaderDropdown>
   );

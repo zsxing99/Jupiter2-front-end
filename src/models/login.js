@@ -1,8 +1,9 @@
 import { stringify } from 'querystring';
 import { history } from 'umi';
-import { fakeAccountLogin } from '@/services/login';
+import { accountLogin, accountLogout } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import { message } from 'antd';
 
 const Model = {
   namespace: 'login',
@@ -11,13 +12,13 @@ const Model = {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(accountLogin, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
+      if (response.status === 'OK') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -36,28 +37,35 @@ const Model = {
             return;
           }
         }
-
         history.replace(redirect || '/');
       }
     },
 
-    logout() {
-      const { redirect } = getPageQuery(); // Note: There may be security issues, please note
-
-      if (window.location.pathname !== '/user/login' && !redirect) {
-        history.replace({
-          pathname: '/user/login',
-          search: stringify({
-            redirect: window.location.href,
-          }),
-        });
+    *logout({ payload }, { call, put }) {
+      const response = yield call(accountLogout, payload);
+      yield put({
+        type: 'changeLoginStatus',
+        payload: response,
+      });
+      yield put({
+        type: 'clearCurrentUser',
+        payload: response
+      })
+      if (response.status === 'OK') {
+        message.success("Successfully Logged out!")
+      } else {
+        message.error(response.status);
       }
+      history.replace("user/login");
     },
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
       setAuthority(payload.currentAuthority);
       return { ...state, status: payload.status, type: payload.type };
+    },
+    clearCurrentUser(state, action) {
+      return { ...state, currentUser: action.payload || {} };
     },
   },
 };

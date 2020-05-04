@@ -1,11 +1,14 @@
 import request from '@/utils/request';
 
-export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
+export async function accountLogin(params) {
+  return request('/Jupiter2_war/server/api/user/login', {
     method: 'POST',
     data: params,
   });
 }
-export async function getFakeCaptcha(mobile) {
-  return request(`/api/login/captcha?mobile=${mobile}`);
+export async function accountLogout() {
+  return request('/Jupiter2_war/server/api/user/logout', {
+    method: 'GET',
+    withCredentials: true,
+  });
 }

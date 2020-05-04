@@ -1,7 +1,7 @@
 import { history } from 'umi';
 import { message } from 'antd';
 import { accountLogin } from './service';
-import { getPageQuery, setAuthority } from './utils/utils';
+import { getPageQuery } from './utils/utils';
 
 const Model = {
   namespace: 'userAndlogin',
@@ -36,7 +36,6 @@ const Model = {
             return;
           }
         }
-
         history.replace(redirect || '/');
       } else if (response.status !== undefined) {
         message.error(response.status);
@@ -44,12 +43,6 @@ const Model = {
           pathname: '/user/login',
         });
       }
-    },
-  },
-  reducers: {
-    changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
-      return { ...state, status: payload.status, type: payload.type };
     },
   },
 };
