@@ -1,21 +1,25 @@
 import React from 'react';
+import { history } from 'umi';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Typography, Alert } from 'antd';
+import { Card, Typography, Alert, Button } from 'antd';
 import styles from './Welcome.less';
 
-const CodePreview = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
+const Redirect = (props) => {
+  const onClickRedirect = () => {
+    history.replace(props.to);
+  }
+  return (
+    <pre className={styles.pre}>
+      <Button onClick={onClickRedirect}>{props.children}</Button>
+    </pre>
+  );
+}
 
 export default () => (
   <PageHeaderWrapper>
     <Card>
       <Alert
-        message="umi ui 现已发布，点击右下角 umi 图标即可使用"
+        message="Welcome to Jupiter2. Find your next dream job here!"
         type="success"
         showIcon
         banner
@@ -25,38 +29,22 @@ export default () => (
         }}
       />
       <Typography.Text strong>
-        <a target="_blank" rel="noopener noreferrer" href="https://pro.ant.design/docs/block">
-          基于 block 开发，快速构建标准页面
-        </a>
+        Starting by searching your interested jobs.
       </Typography.Text>
-      <CodePreview> npm run ui</CodePreview>
+      <Redirect to="/search">Head to the searching panel.</Redirect>
+      <Typography.Text strong>
+        Save your favorite jobs.
+      </Typography.Text>
+      <Redirect to="/favorite">Head to your saved jobs.</Redirect>
       <Typography.Text
         strong
         style={{
           marginBottom: 12,
         }}
       >
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://pro.ant.design/docs/available-script#npm-run-fetchblocks"
-        >
-          获取全部区块
-        </a>
+        Try our recommended jobs.
       </Typography.Text>
-      <CodePreview> npm run fetch:blocks</CodePreview>
+      <Redirect to="/recommendation">Head to our recommendation based on your favorite jobs.</Redirect>
     </Card>
-    <p
-      style={{
-        textAlign: 'center',
-        marginTop: 24,
-      }}
-    >
-      Want to add more pages? Please refer to{' '}
-      <a href="https://pro.ant.design/docs/block-cn" target="_blank" rel="noopener noreferrer">
-        use block
-      </a>
-      。
-    </p>
   </PageHeaderWrapper>
 );

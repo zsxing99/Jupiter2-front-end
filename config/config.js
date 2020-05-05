@@ -62,7 +62,7 @@ export default defineConfig({
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          // Routes: ['src/pages/Authorized'],
+          Routes: ['src/pages/Authorized'],
           authority: ['user'],
           routes: [
             {
@@ -83,13 +83,14 @@ export default defineConfig({
               path: '/card-list',
               component: './list/card-list'
             },
-            // {
-            //   name: 'favorite',
-            //   icon: 'heart',
-            //   path: '/favorite',
-            // },
             {
-              component: '404',
+              name: 'favorite',
+              icon: 'heart',
+              path: '/favorite',
+              component: './favorite'
+            },
+            {
+              component: 'Welcome',
             },
           ],
         },
