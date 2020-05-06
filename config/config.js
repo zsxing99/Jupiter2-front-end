@@ -67,9 +67,20 @@ export default defineConfig({
           routes: [
             {
               name: 'table-list',
-              icon: 'smile',
+              icon: 'search',
               path: '/table-list',
               component: './list/table-list'
+            },
+            {
+              name: '1',
+              icon: 'search',
+              path: '/1',
+              component: './list/search/applications'
+            },
+            {
+              name: 'search',
+              icon: 'search',
+              path: '/search'
             },
             {
               name: 'favorite',

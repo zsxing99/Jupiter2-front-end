@@ -2,15 +2,15 @@ import { Card, List, Typography } from 'antd';
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'umi';
+import request from '@/utils/request';
 import { Like } from '../utilities/Like';
 import pic from '../../assets/like.png';
 import styles from './style.less';
-import request from '@/utils/request';
 
 const { Paragraph } = Typography;
 
 class RecommendationList extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(position => {

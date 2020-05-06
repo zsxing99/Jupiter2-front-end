@@ -27,6 +27,7 @@ export default {
   'menu.card-list': 'Card List',
   'menu.favorite': 'Favorite Jobs',
   'menu.recommend': 'Recommended Jobs',
+  'menu.search': 'Search Jobs',
   'menu.list.search-list': 'Search List',
   'menu.list.search-list.articles': 'Search List(articles)',
   'menu.list.search-list.projects': 'Search List(projects)',
