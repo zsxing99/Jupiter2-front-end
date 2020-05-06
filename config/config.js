@@ -78,12 +78,6 @@ export default defineConfig({
               component: './list/basic-list'
             },
             {
-              name: 'card-list',
-              icon: 'smile',
-              path: '/card-list',
-              component: './list/card-list'
-            },
-            {
               name: 'favorite',
               icon: 'heart',
               path: '/favorite',

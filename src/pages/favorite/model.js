@@ -1,13 +1,13 @@
-import { queryFakeList } from './service';
+import { queryFavorite } from './service';
 
 const Model = {
-  namespace: 'f',
+  namespace: 'listAndcardList',
   state: {
     list: [],
   },
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(queryFavorite, payload);
       yield put({
         type: 'queryList',
         payload: Array.isArray(response) ? response : [],

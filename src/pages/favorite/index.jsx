@@ -1,45 +1,36 @@
-import { PlusOutlined } from '@ant-design/icons';
 import { Button, Card, List, Typography } from 'antd';
 import React, { Component } from 'react';
+import { HeartTwoTone, HeartOutlined } from '@ant-design/icons'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'umi';
 import styles from './style.less';
 
 const { Paragraph } = Typography;
 
-class CardList extends Component {
+class FavoriteList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fav/fetch',
+      type: 'listAndcardList/fetch',
     });
   }
 
   render() {
     const {
-      listAndcardList: { list },
+      listAndcardList : { list },
       loading,
     } = this.props;
     const content = (
       <div className={styles.pageHeaderContent}>
         <p>
-          段落示意：蚂蚁金服务设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，
-          提供跨越设计与开发的体验解决方案。
+          Your favorite jobs are shown here.
         </p>
-      </div>
-    );
-    const extraContent = (
-      <div className={styles.extraImg}>
-        <img
-          alt="这是一个标题"
-          src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"
-        />
       </div>
     );
     const nullData = {};
     return (
-      <PageHeaderWrapper content={content} extraContent={extraContent}>
-        <div className={styles.cardList}>
+      <PageHeaderWrapper content={content}>
+        <div className={styles.FavoriteList}>
           <List
             rowKey="id"
             loading={loading}
@@ -50,7 +41,7 @@ class CardList extends Component {
               sm: 1,
               xs: 1,
             }}
-            dataSource={[nullData, ...list]}
+            dataSource={[...list, nullData]}
             renderItem={item => {
               if (item && item.item_id) {
                 return (
@@ -58,7 +49,13 @@ class CardList extends Component {
                     <Card
                       hoverable
                       className={styles.card}
-                      actions={[<a key="option1">操作一</a>, <a key="option2">操作二</a>]}
+                      actions={[
+                        (item.favorite ?
+                          <HeartTwoTone twoToneColor="#eb2f96"/>
+                          :
+                          <HeartOutlined />
+                        ),
+                        <a key="option2" target="_blank" rel="noopener noreferrer" href={item.url}>Details</a>]}
                     >
                       <Card.Meta
                         avatar={<img alt="" className={styles.cardAvatar} src={item.image_url} />}
@@ -70,7 +67,7 @@ class CardList extends Component {
                               rows: 3,
                             }}
                           >
-                            {item.description}
+                            {item.keywords}
                           </Paragraph>
                         }
                       />
@@ -80,11 +77,9 @@ class CardList extends Component {
               }
 
               return (
-                <List.Item>
-                  <Button type="dashed" className={styles.newButton}>
-                    <PlusOutlined /> 新增产品
-                  </Button>
-                </List.Item>
+                <Typography.Text>
+                  Go to search
+                </Typography.Text>
               );
             }}
           />
@@ -97,4 +92,4 @@ class CardList extends Component {
 export default connect(({ listAndcardList, loading }) => ({
   listAndcardList,
   loading: loading.models.listAndcardList,
-}))(CardList);
+}))(FavoriteList);
