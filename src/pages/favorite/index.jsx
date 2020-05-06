@@ -1,8 +1,10 @@
-import { Button, Card, List, Typography } from 'antd';
+import { Card, List, Typography } from 'antd';
 import React, { Component } from 'react';
 import { HeartTwoTone, HeartOutlined } from '@ant-design/icons'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'umi';
+import { setFavorite, unsetFavorite } from '@/pages/favorite/service';
+import pic from '../../assets/signs.png';
 import styles from './style.less';
 
 const { Paragraph } = Typography;
@@ -27,9 +29,16 @@ class FavoriteList extends Component {
         </p>
       </div>
     );
-    const nullData = {};
+    const extraContent = (
+      <div className={styles.extraImg}>
+        <img
+          alt=""
+          src={pic}
+        />
+      </div>
+    );
     return (
-      <PageHeaderWrapper content={content}>
+      <PageHeaderWrapper content={content} extraContent={extraContent}>
         <div className={styles.FavoriteList}>
           <List
             rowKey="id"
@@ -41,21 +50,18 @@ class FavoriteList extends Component {
               sm: 1,
               xs: 1,
             }}
-            dataSource={[...list, nullData]}
+            dataSource={[...list]}
             renderItem={item => {
-              if (item && item.item_id) {
                 return (
                   <List.Item key={item.item_id}>
                     <Card
                       hoverable
                       className={styles.card}
                       actions={[
-                        (item.favorite ?
-                          <HeartTwoTone twoToneColor="#eb2f96"/>
-                          :
-                          <HeartOutlined />
-                        ),
-                        <a key="option2" target="_blank" rel="noopener noreferrer" href={item.url}>Details</a>]}
+                        <Like itemID={item.item_id} favorite={item.favorite}/>,
+                        <a key="option2" target="_blank" rel="noopener noreferrer" href={item.url}>Details</a>,
+                        <a key="option3" target="_blank" rel="noopener noreferrer" href={item.company_url}>{item.company}</a>
+                      ]}
                     >
                       <Card.Meta
                         avatar={<img alt="" className={styles.cardAvatar} src={item.image_url} />}
@@ -67,25 +73,71 @@ class FavoriteList extends Component {
                               rows: 3,
                             }}
                           >
-                            {item.keywords}
+                            <ul>
+                              <li>
+                                {item.keywords[0]}
+                              </li>
+                              {item.keywords[1] === undefined ? null : <li>
+                                {item.keywords[1]}
+                              </li>
+                              }
+
+                              {item.keywords[2] === undefined ? null : <li>
+                                {item.keywords[2]}
+                              </li>
+                              }
+                            </ul>
                           </Paragraph>
                         }
                       />
                     </Card>
                   </List.Item>
                 );
-              }
-
-              return (
-                <Typography.Text>
-                  Go to search
-                </Typography.Text>
-              );
             }}
           />
         </div>
       </PageHeaderWrapper>
     );
+  }
+}
+
+class Like extends Component {
+  state = {
+    itemId: this.props.itemID,
+    like: this.props.favorite
+  }
+
+  onClick = () => {
+    if (!this.state.like) {
+      setFavorite(JSON.stringify({
+        "favorite" : [this.state.itemId]
+      })).then(value => {
+        if (value.result === "SUCCESS") {
+          this.setState(prevState => ({
+            like : !prevState.like
+          }))
+        }
+      })
+    } else {
+      unsetFavorite(JSON.stringify({
+        "favorite" : [this.state.itemId]
+      })).then((value) => {
+        if (value.result === "SUCCESS") {
+          this.setState(prevState => ({
+            like : !prevState.like
+          }))
+        }
+      })
+    }
+  }
+
+  render() {
+    return (
+      this.state.like ?
+        <HeartTwoTone onClick={this.onClick} twoToneColor="#eb2f96"/>
+        :
+        <HeartOutlined onClick={this.onClick}/>
+    )
   }
 }
 

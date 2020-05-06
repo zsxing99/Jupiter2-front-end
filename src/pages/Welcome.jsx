@@ -44,7 +44,7 @@ export default () => (
       >
         Try our recommended jobs.
       </Typography.Text>
-      <Redirect to="/recommendation">Head to our recommendation based on your favorite jobs.</Redirect>
+      <Redirect to="/recommendation">Head to our recommendation based on your history.</Redirect>
     </Card>
   </PageHeaderWrapper>
 );
