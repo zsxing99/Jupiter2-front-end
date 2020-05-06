@@ -84,6 +84,7 @@ class RecommendationList extends Component {
                       <a key="option2" target="_blank" rel="noopener noreferrer" href={item.url}>Details</a>,
                       <a key="option3" target="_blank" rel="noopener noreferrer" href={item.company_url}>{item.company}</a>
                     ]}
+                    extra={item.address}
                   >
                     <Card.Meta
                       avatar={<img alt="" className={styles.cardAvatar} src={item.image_url} />}
