@@ -5,15 +5,38 @@ import { connect } from 'umi';
 import { Like } from '../utilities/Like';
 import pic from '../../assets/like.png';
 import styles from './style.less';
+import request from '@/utils/request';
 
 const { Paragraph } = Typography;
 
 class RecommendationList extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({
-      type: 'recommendationList/fetch',
-    });
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(position => {
+        dispatch({
+          type: 'recommendationList/fetch',
+          payload : {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude
+          }
+        })
+      })
+    } else {
+      request.get('http://ipinfo.io/json', {
+        credentials: "omit"
+      }).then(
+        value => {
+          dispatch({
+            type: 'recommendationList/fetch',
+            payload : {
+              lat: value.loc.split[0],
+              lon: value.loc.split[1]
+            }
+          })
+        }
+      )
+    }
   }
 
   render() {
