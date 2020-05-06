@@ -1,10 +1,9 @@
 import { Card, List, Typography } from 'antd';
 import React, { Component } from 'react';
-import { HeartTwoTone, HeartOutlined } from '@ant-design/icons'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'umi';
-import { setFavorite, unsetFavorite } from '@/pages/favorite/service';
-import pic from '../../assets/signs.png';
+import { Like } from '../utilities/Like';
+import pic from '../../assets/list.png';
 import styles from './style.less';
 
 const { Paragraph } = Typography;
@@ -98,46 +97,6 @@ class FavoriteList extends Component {
         </div>
       </PageHeaderWrapper>
     );
-  }
-}
-
-class Like extends Component {
-  state = {
-    itemId: this.props.itemID,
-    like: this.props.favorite
-  }
-
-  onClick = () => {
-    if (!this.state.like) {
-      setFavorite(JSON.stringify({
-        "favorite" : [this.state.itemId]
-      })).then(value => {
-        if (value.result === "SUCCESS") {
-          this.setState(prevState => ({
-            like : !prevState.like
-          }))
-        }
-      })
-    } else {
-      unsetFavorite(JSON.stringify({
-        "favorite" : [this.state.itemId]
-      })).then((value) => {
-        if (value.result === "SUCCESS") {
-          this.setState(prevState => ({
-            like : !prevState.like
-          }))
-        }
-      })
-    }
-  }
-
-  render() {
-    return (
-      this.state.like ?
-        <HeartTwoTone onClick={this.onClick} twoToneColor="#eb2f96"/>
-        :
-        <HeartOutlined onClick={this.onClick}/>
-    )
   }
 }
 

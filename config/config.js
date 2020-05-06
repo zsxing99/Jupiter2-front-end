@@ -72,16 +72,16 @@ export default defineConfig({
               component: './list/table-list'
             },
             {
-              name: 'basic-list',
-              icon: 'smile',
-              path: '/basic-list',
-              component: './list/basic-list'
-            },
-            {
               name: 'favorite',
               icon: 'heart',
               path: '/favorite',
               component: './favorite'
+            },
+            {
+              name: 'recommend',
+              icon: 'like',
+              path: '/recommendation',
+              component: './recommendation'
             },
             {
               component: 'Welcome',
