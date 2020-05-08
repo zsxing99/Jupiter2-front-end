@@ -1,19 +1,19 @@
-# Ant Design Pro
+# Jupiter2 Front End
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+This project is initialized with [Ant Design Pro](https://pro.ant.design).
 
-## Environment Prepare
+The development of backend/Database is placed [here](https://github.com/zsxing99/Jupiter2) 
+## Cloud Deployment
+The project is deployment on AWS
+
+Website: [Jupiter2](http://54.193.31.55/Jupiter2/#/)
+
+## Local Environment Prepare
 
 Install `node_modules`:
 
 ```bash
 npm install
-```
-
-or
-
-```bash
-yarn
 ```
 
 ## Provided Scripts
@@ -54,4 +54,4 @@ npm test
 
 ## More
 
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+You can view full document on Antd Design Pro [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
