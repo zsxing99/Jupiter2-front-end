@@ -4,7 +4,6 @@ export async function accountLogin(params) {
   return request('/Jupiter2_war/user/login', {
     method: 'POST',
     data: params,
-    credentials: 'omit'
   });
 }
 export async function accountLogout() {

@@ -24,7 +24,7 @@ export default defineConfig({
   locale: {
     default: 'us-EN',
     // default true, when it is true, will use `navigator.language` overwrite default
-    antd: true,
+    antd: false,
     baseNavigator: true,
   },
   dynamicImport: {
@@ -63,8 +63,6 @@ export default defineConfig({
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          Routes: ['src/pages/Authorized'],
-          authority: ['user'],
           routes: [
             {
               name: 'search',
