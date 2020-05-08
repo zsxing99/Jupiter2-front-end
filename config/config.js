@@ -10,7 +10,7 @@ const { winPath } = utils; // preview.pro.ant.design only do not use in your pro
 const { REACT_APP_ENV, GA_KEY } = process.env;
 export default defineConfig({
   history: { type: 'hash' },
-  base: '/Jupiter2_war',
+  base: '/',
   publicPath: './',
   hash: true,
   antd: {},
@@ -25,7 +25,7 @@ export default defineConfig({
   locale: {
     default: 'us-EN',
     // default true, when it is true, will use `navigator.language` overwrite default
-    antd: true,
+    antd: false,
     baseNavigator: true,
   },
   dynamicImport: {
