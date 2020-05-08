@@ -7,7 +7,7 @@ import webpackPlugin from './plugin.config';
 const { winPath } = utils; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV, GA_KEY } = process.env;
+const { REACT_APP_ENV, GA_KEY } = process.env;
 export default defineConfig({
   hash: true,
   antd: {},
@@ -66,21 +66,10 @@ export default defineConfig({
           authority: ['user'],
           routes: [
             {
-              name: 'table-list',
-              icon: 'search',
-              path: '/table-list',
-              component: './list/table-list'
-            },
-            {
-              name: '1',
-              icon: 'search',
-              path: '/1',
-              component: './list/search/applications'
-            },
-            {
               name: 'search',
               icon: 'search',
-              path: '/search'
+              path: '/search',
+              component: './search'
             },
             {
               name: 'favorite',
