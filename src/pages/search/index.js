@@ -70,13 +70,15 @@ class SearchList extends Component {
     );
 
     const onFinish = values => {
-      if (values.method === "geo") {
-        this.searchGeo();
+      if (!values.method || values.method  === "geo") {
+        this.searchGeo([]);
       } else {
         const { dispatch } = this.props;
+        console.log(values);
         dispatch({
           type: 'searchList/fetch',
           payload : {
+
             ...values
           }
         })
