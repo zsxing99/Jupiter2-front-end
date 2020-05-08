@@ -1,13 +1,14 @@
 import request from '@/utils/request';
 
 export async function accountLogin(params) {
-  return request('/Jupiter2_war/server/api/user/login', {
+  return request('/Jupiter2_war/user/login', {
     method: 'POST',
     data: params,
+    credentials: 'omit'
   });
 }
 export async function accountLogout() {
-  return request('/Jupiter2_war/server/api/user/logout', {
+  return request('/Jupiter2_war/user/logout', {
     method: 'GET',
     withCredentials: true,
   });

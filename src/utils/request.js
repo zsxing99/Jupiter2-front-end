@@ -4,7 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import { history } from '@/.umi/core/history';
+import { history } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -39,7 +39,7 @@ const errorHandler = error => {
     });
 
     if (status === 401) {
-      history.replace("user/login")
+      history.replace("/user/login")
     }
   } else if (!response) {
     notification.error({

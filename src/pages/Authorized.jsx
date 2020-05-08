@@ -19,7 +19,7 @@ const AuthComponent = ({
   return (
     <Authorized
       authority={getRouteAuthority(location.pathname, routes) || ''}
-      noMatch={isLogin ? <Redirect to="/exception/404" /> : <Redirect to="/user/login" />}
+      noMatch={isLogin ? <Redirect to="/" /> : <Redirect to="/login" />}
     >
       {children}
     </Authorized>

@@ -7,11 +7,11 @@
  */
 export default {
   dev: {
-    '/Jupiter2_war/server/api/': {
-      target: 'http://localhost:8080/',
+    '': {
+      target: '',
       changeOrigin: true,
       pathRewrite: {
-        '^/Jupiter2_war/server/api/': '/Jupiter2_war/',
+        '^': '',
       },
     },
   },

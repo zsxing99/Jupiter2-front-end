@@ -9,6 +9,8 @@ const { winPath } = utils; // preview.pro.ant.design only do not use in your pro
 
 const { REACT_APP_ENV, GA_KEY } = process.env;
 export default defineConfig({
+  base: '/Jupiter2_war/',
+  publicPath: './',
   hash: true,
   antd: {},
   analytics: GA_KEY
@@ -47,7 +49,6 @@ export default defineConfig({
             },
             {
               name: 'login',
-              icon: 'smile',
               path: '/user/login',
               component: './user/login',
             },
